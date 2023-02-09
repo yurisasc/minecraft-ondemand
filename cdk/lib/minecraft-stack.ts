@@ -171,6 +171,20 @@ export class MinecraftStack extends Stack {
       minecraftServerConfig.ingressRulePort
     );
 
+    config.extraTcpPorts.forEach(port => {
+      serviceSecurityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.tcp(port)
+      );
+    });
+
+    config.extraUdpPorts.forEach(port => {
+      serviceSecurityGroup.addIngressRule(
+        ec2.Peer.anyIpv4(),
+        ec2.Port.udp(port)
+      );
+    });
+
     const minecraftServerService = new ecs.FargateService(
       this,
       'FargateService',
