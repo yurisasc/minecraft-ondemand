@@ -145,6 +145,20 @@ export interface StackConfig {
    * - CloudWatch Logs for the `minecraft-ecsfargate-watchdog` ECS Container
    */
   debug: boolean;
+  /**
+   * Extra TCP ports to open on the security group
+   * 
+   * @default []
+   * @example [25565, 25575]
+   */
+  extraTcpPorts: number[];
+  /**
+   * Extra UDP ports to open on the security group
+   * 
+   * @default []
+   * @example [19132]
+   */
+  extraUdpPorts: number[];
 }
 
 export interface MinecraftEditionConfig {

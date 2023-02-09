@@ -7,6 +7,9 @@ import { MinecraftEditionConfig, StackConfig } from './types';
 export const stringAsBoolean = (str?: string): boolean =>
   Boolean(str === 'true');
 
+export const stringAsNumberArray = (str?: string): number[] =>
+  JSON.parse(str ?? '[]').map(Number) ?? [];
+
 export const isDockerInstalled = (): boolean => {
   try {
     execa.sync('docker', ['version']);

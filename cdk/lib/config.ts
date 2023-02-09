@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import { MinecraftImageEnv, StackConfig } from './types';
-import { stringAsBoolean } from './util';
+import { stringAsBoolean, stringAsNumberArray } from './util';
 
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
@@ -44,4 +44,6 @@ export const resolveConfig = (): StackConfig => ({
     authCode: process.env.TWILIO_AUTH_CODE || '',
   },
   debug: stringAsBoolean(process.env.DEBUG) || false,
+  extraTcpPorts: stringAsNumberArray(process.env.EXTRA_TCP_PORTS) || [],
+  extraUdpPorts: stringAsNumberArray(process.env.EXTRA_UDP_PORTS) || [],
 });
