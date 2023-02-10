@@ -502,14 +502,16 @@ To use your new server, open Minecraft Multiplayer, add your new server, and joi
 ## Option 1: Connecting to the server container
 This option is the easiest for folks that are comfortable in the Linux command line, so I'm not going to step-by-step it. It is also the most efficient one because you are directly connecting to the server without the need of any intermediary. All you need is your Task id, which you can find in the ECS console. An example of a task id is a series of numbers and letters like so: `09778a25101e42749701ae0b4e324b08`. After you found your task id, you can connect to the container using the following command:
 ```
-aws ecs execute-command \
---cluster minecraft \
---container minecraft-server \
---command "/bin/bash" \
---task <YOUR_TASK_ID>
+aws ecs execute-command  \
+    --cluster minecraft \
+    --container minecraft-server \
+    --command "/bin/bash" \
+    --interactive \
+    --region <YOUR_SERVER_REGION> \
+    --task <YOUR_TASK_ID>
 ```
 
-You can also choose to connect to your Minecraft server console by modifying `"bin/bash"` to `"rcon-cli"`. This is useful if you've just set up your server and your character is not set as the server OP. Just connect to the server console by executing the command, and you will be able to do `/op <YOUR_USERNAME>` to set yourself as the server OP.
+You can also choose to connect to your Minecraft server console by modifying `"/bin/bash"` to `"rcon-cli"`. This is useful if you've just set up your server and your character is not set as the server OP. Just connect to the server console by executing the command, and you will be able to do `/op <YOUR_USERNAME>` to set yourself as the server OP.
 
 ## Option 2: Mount EFS Directly
 
