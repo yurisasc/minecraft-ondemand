@@ -4,28 +4,62 @@ Almost free serverless on-demand Minecraft server in AWS
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-- [Background](#background)
-- [Workflow](#workflow)
-- [Diagram](#diagram)
-- [Requirements](#requirements)
-- [Cost Breakdown](#cost-breakdown)
+- [minecraft-ondemand](#minecraft-ondemand)
+  - [Table of Contents](#table-of-contents)
+  - [Quick Start](#quick-start)
+  - [Background](#background)
+  - [Workflow](#workflow)
+  - [Diagram](#diagram)
+  - [Requirements](#requirements)
+  - [Cost Breakdown](#cost-breakdown)
 - [Installation and Setup](#installation-and-setup)
   - [Checklist of things to keep track of](#checklist-of-things-to-keep-track-of)
   - [Region Selection](#region-selection)
   - [VPC](#vpc)
   - [Elastic File System](#elastic-file-system)
+    - [Creating the EFS](#creating-the-efs)
+    - [Allow access to EFS from within the VPC](#allow-access-to-efs-from-within-the-vpc)
   - [Lambda](#lambda)
   - [Route 53](#route-53)
+    - [Server DNS Record](#server-dns-record)
+    - [Query Logging](#query-logging)
   - [Optional SNS Notifications](#optional-sns-notifications)
   - [IAM](#iam)
+    - [Policies](#policies)
+      - [EFS Policy](#efs-policy)
+      - [ECS Policy](#ecs-policy)
+      - [Route 53 Policy](#route-53-policy)
+      - [SNS policy (optional)](#sns-policy-optional)
+    - [Roles](#roles)
+      - [ECS Role](#ecs-role)
+      - [Lambda Role](#lambda-role)
   - [Elastic Container Service](#elastic-container-service)
+    - [Task Definition](#task-definition)
+    - [Cluster](#cluster)
+    - [Service](#service)
   - [CloudWatch](#cloudwatch)
 - [Usage and Customization](#usage-and-customization)
-  - [Option 1: Mount EFS Directly](#option-1-mount-efs-directly)
-  - [Option 2: DataSync and S3](#option-2-datasync-and-s3)
+  - [Option 1: Connecting to the server container](#option-1-connecting-to-the-server-container)
+  - [Option 2: Mount EFS Directly](#option-2-mount-efs-directly)
+  - [Option 3: DataSync and S3](#option-3-datasync-and-s3)
+    - [Step 1: Create an S3 bucket](#step-1-create-an-s3-bucket)
+    - [Step 2: Create an EFS -\> S3 DataSync Task](#step-2-create-an-efs---s3-datasync-task)
+    - [Step 3: Create an S3 -\> EFS DataSync Task](#step-3-create-an-s3---efs-datasync-task)
+    - [Usage and file editing](#usage-and-file-editing)
 - [Testing and Troubleshooting](#testing-and-troubleshooting)
+  - [Areas of concern, what to watch](#areas-of-concern-what-to-watch)
+    - [CloudWatch](#cloudwatch-1)
+    - [Lambda](#lambda-1)
+    - [Elastic Container Service](#elastic-container-service-1)
+      - [Service won't launch task](#service-wont-launch-task)
+      - [Containers won't switch to RUNNING state](#containers-wont-switch-to-running-state)
+    - [Can't connect to minecraft server](#cant-connect-to-minecraft-server)
+    - [Not getting text messages](#not-getting-text-messages)
+  - [Server starts randomly?](#server-starts-randomly)
 - [Other Stuff](#other-stuff)
+  - [Concerned about cost overruns?](#concerned-about-cost-overruns)
+  - [Twilio setup / usage](#twilio-setup--usage)
+  - [Suggestions, comments, concerns?](#suggestions-comments-concerns)
 
 ## Quick Start
 Too much text for you?  Click the `cdk` folder in the source above for a fast and relatively-automated walkthrough.
@@ -465,11 +499,25 @@ Launch your server the first time by visiting your server name in a web browser,
 
 To use your new server, open Minecraft Multiplayer, add your new server, and join. It will fail at first if the server is not started, but then everything comes online and you can join your new world! You may notice that you don't have many permissions or ability to customize a lot of things yet, so let's dig into how to edit the relevant files!
 
-## Option 1: Mount EFS Directly
+## Option 1: Connecting to the server container
+This option is the easiest for folks that are comfortable in the Linux command line, so I'm not going to step-by-step it. It is also the most efficient one because you are directly connecting to the server without the need of any intermediary. All you need is your Task id, which you can find in the ECS console. An example of a task id is a series of numbers and letters like so: `09778a25101e42749701ae0b4e324b08`. After you found your task id, you can connect to the container using the following command:
+```
+aws ecs execute-command \
+--cluster minecraft \
+--container minecraft-server \
+--command "/bin/bash" \
+--task <YOUR_TASK_ID>
+```
 
-This option is the easiest for folks that are comfortable in the Linux command line, so I'm not going to step-by-step it. But basically, launch an AWS Linux v2 AMI in EC2 with bare-minimum specs, log into it, mount the EFS Access Point, and use your favorite command line text editor to change around server.properties, the ops.json, whitelists, whatever, and then re-launch your server with the new configuration.
+You can also choose to connect to your Minecraft server console by modifying `"bin/bash"` to `"rcon-cli"`. This is useful if you've just set up your server and your character is not set as the server OP. Just connect to the server console by executing the command, and you will be able to do `/op <YOUR_USERNAME>` to set yourself as the server OP.
 
-## Option 2: DataSync and S3
+## Option 2: Mount EFS Directly
+
+The other option is to spin up an EC2 instance and connecting it to the EFS. We have created a template for the instance, so it should be easy to set up. Keep in mind that you will be charged for the EC2 instance, so it's not free. Make sure to shut down the instance when you're done.
+
+Basically, launch an AWS Linux v2 AMI in EC2 with bare-minimum specs by selecting `EFSMaintenanceLaunchTemplate` as the template, log into it, mount the EFS Access Point, and use your favorite command line text editor to change around server.properties, the ops.json, whitelists, whatever, and then re-launch your server with the new configuration.
+
+## Option 3: DataSync and S3
 
 Since EFS doesn't have a convenient way to access the files outside of mounting a share to something within the VPC, we can utilize AWS DataSync to copy files in and out to a more convenient location. These instructions will use S3 as there are countless S3 clients out there you can manage files, including the AWS Console itself.
 
