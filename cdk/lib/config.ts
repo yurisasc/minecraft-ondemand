@@ -43,6 +43,9 @@ export const resolveConfig = (): StackConfig => ({
     accountId: process.env.TWILIO_ACCOUNT_ID || '',
     authCode: process.env.TWILIO_AUTH_CODE || '',
   },
+  discord: {
+    webhookUrl: process.env.DISCORD_WEBHOOK_URL || '',
+  },
   debug: stringAsBoolean(process.env.DEBUG) || false,
   extraTcpPorts: stringAsNumberArray(process.env.EXTRA_TCP_PORTS) || [],
   extraUdpPorts: stringAsNumberArray(process.env.EXTRA_UDP_PORTS) || [],

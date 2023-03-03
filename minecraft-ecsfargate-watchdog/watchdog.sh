@@ -20,6 +20,11 @@ function send_notification ()
   echo "Twilio information set, sending $1 message" && \
   curl --silent -XPOST -d "Body=$MESSAGETEXT" -d "From=$TWILIOFROM" -d "To=$TWILIOTO" "https://api.twilio.com/2010-04-01/Accounts/$TWILIOAID/Messages" -u "$TWILIOAID:$TWILIOAUTH"
 
+  ## Discord Option
+  [ -n "$DISCORDWEBHOOK" ] && \
+  echo "Discord webhook set, sending $1 message" && \
+  curl --silent -X POST -H "Content-Type: application/json" -d "{\"content\": \"$MESSAGETEXT\"}" "$DISCORDWEBHOOK"
+
   ## SNS Option
   [ -n "$SNSTOPIC" ] && \
   echo "SNS topic set, sending $1 message" && \

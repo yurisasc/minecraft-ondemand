@@ -268,6 +268,7 @@ export class MinecraftStack extends Stack {
           TWILIOTO: config.twilio.phoneTo,
           TWILIOAID: config.twilio.accountId,
           TWILIOAUTH: config.twilio.authCode,
+          DISCORDWEBHOOK: config.discord.webhookUrl,
           STARTUPMIN: config.startupMinutes,
           SHUTDOWNMIN: config.shutdownMinutes,
           GEYSER: config.useGeyser.toString(),
