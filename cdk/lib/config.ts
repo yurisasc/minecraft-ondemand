@@ -46,4 +46,5 @@ export const resolveConfig = (): StackConfig => ({
   debug: stringAsBoolean(process.env.DEBUG) || false,
   extraTcpPorts: stringAsNumberArray(process.env.EXTRA_TCP_PORTS) || [],
   extraUdpPorts: stringAsNumberArray(process.env.EXTRA_UDP_PORTS) || [],
+  useGeyser: stringAsBoolean(process.env.USE_GEYSER) || false,
 });

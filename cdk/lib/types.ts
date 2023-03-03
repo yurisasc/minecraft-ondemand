@@ -147,18 +147,26 @@ export interface StackConfig {
   debug: boolean;
   /**
    * Extra TCP ports to open on the security group
-   * 
+   *
    * @default []
    * @example [25565, 25575]
    */
   extraTcpPorts: number[];
   /**
    * Extra UDP ports to open on the security group
-   * 
+   *
    * @default []
    * @example [19132]
    */
   extraUdpPorts: number[];
+  /**
+   * Setting to `true` will allow the watchdog to listen for geyser connections.
+   * Make sure to set `BEDROCK_SERVER_PORT` to your geyser port if it's not the default (`19132`).
+   * 
+   * @default false
+   * @example true
+   */
+  useGeyser: boolean;
 }
 
 export interface MinecraftEditionConfig {
