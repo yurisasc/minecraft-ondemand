@@ -270,6 +270,7 @@ export class MinecraftStack extends Stack {
           TWILIOAUTH: config.twilio.authCode,
           STARTUPMIN: config.startupMinutes,
           SHUTDOWNMIN: config.shutdownMinutes,
+          GEYSER: config.useGeyser.toString(),
         },
         logging: config.debug
           ? new ecs.AwsLogDriver({
