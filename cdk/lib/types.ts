@@ -26,6 +26,16 @@ interface TwilioConfig {
   authCode: string;
 }
 
+interface DiscordConfig {
+  /**
+   * Discord webhook URL
+   *
+   * @example
+   * `https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz`
+   */
+  webhookUrl: string;
+}
+
 export type MinecraftImageEnv = Record<string, string>;
 
 export type MinecraftEdition = 'java' | 'bedrock';
@@ -129,6 +139,7 @@ export interface StackConfig {
    */
   snsEmailAddress: string;
   twilio: TwilioConfig;
+  discord: DiscordConfig;
   /**
    * Additional environment variables to be passed to the
    * [Minecraft Docker Server](https://github.com/itzg/docker-minecraft-server/blob/master/README.md)
@@ -162,7 +173,7 @@ export interface StackConfig {
   /**
    * Setting to `true` will allow the watchdog to listen for geyser connections.
    * Make sure to set `BEDROCK_SERVER_PORT` to your geyser port if it's not the default (`19132`).
-   * 
+   *
    * @default false
    * @example true
    */
