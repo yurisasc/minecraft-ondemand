@@ -8,11 +8,7 @@
 [ -n "$DNSZONE" ] || { echo "DNSZONE env variable must be set to the Route53 Hosted Zone ID" ; exit 1; }
 [ -n "$STARTUPMIN" ] || { echo "STARTUPMIN env variable not set, defaulting to a 10 minute startup wait" ; STARTUPMIN=10; }
 [ -n "$SHUTDOWNMIN" ] || { echo "SHUTDOWNMIN env variable not set, defaulting to a 20 minute shutdown wait" ; SHUTDOWNMIN=20; }
-[ -n "$JAVAPORT" ] || { echo "JAVA_PORT env variable not set, defaulting to 25565" ; JAVAPORT=25565; }
-[ -n "$RCONPORT" ] || { echo "RCON_PORT env variable not set, defaulting to 25575" ; RCONPORT=25575; }
-[ -n "$BEDROCKPORT" ] || { echo "BEDROCK_PORT env variable not set, defaulting to 19132" ; BEDROCKPORT=19132; }
 [ -n "$GEYSER" ] || { echo "GEYSER env variable not set, defaulting to false" ; GEYSER=false; }
-
 
 function send_notification ()
 {
@@ -89,8 +85,8 @@ echo "If we are stuck here, the minecraft container probably failed to start.  W
 COUNTER=0
 while true
 do
-  netstat -atn | grep :$JAVAPORT | grep LISTEN && EDITION="java" && break
-  netstat -aun | grep :$BEDROCKPORT && EDITION="bedrock" && break
+  netstat -atn | grep :25565 | grep LISTEN && EDITION="java" && break
+  netstat -aun | grep :19132 && EDITION="bedrock" && break
   sleep 1
   COUNTER=$(($COUNTER + 1))
   if [ $COUNTER -gt 600 ] ## server has not been detected as starting within 10 minutes
@@ -107,7 +103,7 @@ then
   STARTED=0
   while [ $STARTED -lt 1 ]
   do
-    CONNECTIONS=$(netstat -atn | grep :"$RCONPORT" | grep LISTEN | wc -l)
+    CONNECTIONS=$(netstat -atn | grep :25575 | grep LISTEN | wc -l)
     STARTED=$(($STARTED + $CONNECTIONS))
     if [ $STARTED -gt 0 ] ## minecraft actively listening, break out of loop
     then
@@ -118,7 +114,7 @@ then
   done
 fi
 
-if [ "$EDITION" == "bedrock" ] || [ "$Geyser" == "true" ]
+if [[ "$EDITION" == "bedrock" || "$GEYSER" == true ]]
 then
   PINGA="\x01" ## uncommitted ping
   PINGB="\x00\x00\x00\x00\x00\x00\x4e\x20" ## time since start in ms.  20 seconds sounds good
@@ -137,8 +133,8 @@ CONNECTED=0
 while [ $CONNECTED -lt 1 ]
 do
   echo Waiting for connection, minute $COUNTER out of $STARTUPMIN...
-  [ "$EDITION" == "java" ] && CONNECTIONS_JAVA=$(netstat -atn | grep :"$JAVAPORT" | grep ESTABLISHED | wc -l)
-  [ "$EDITION" == "bedrock" ] || [ "$Geyser" == "true" ] && CONNECTIONS_BEDROCK=$((echo -en "$BEDROCKPING" && sleep 1) | ncat -w 1 -u 127.0.0.1 "$BEDROCKPORT" | cut -c34- | awk -F\; '{ print $5 }')
+  [ "$EDITION" == "java" ] && CONNECTIONS_JAVA=$(netstat -atn | grep :19132 | grep ESTABLISHED | wc -l)
+  [[ "$EDITION" == "bedrock" || "$GEYSER" == true ]] && CONNECTIONS_BEDROCK=$( (echo -en "$BEDROCKPING" && sleep 1) | ncat -w 1 -u 127.0.0.1 19132 | cut -c34- | awk -F\; '{ print $5 }')
   [ -n "$CONNECTIONS_JAVA" ] || CONNECTIONS_JAVA=0
   [ -n "$CONNECTIONS_BEDROCK" ] || CONNECTIONS_BEDROCK=0
   CONNECTED=$(($CONNECTED + $CONNECTIONS_JAVA + $CONNECTIONS_BEDROCK))
@@ -160,8 +156,8 @@ echo "We believe a connection has been made, switching to shutdown watcher."
 COUNTER=0
 while [ $COUNTER -le $SHUTDOWNMIN ]
 do
-  [ "$EDITION" == "java" ] && CONNECTIONS_JAVA=$(netstat -atn | grep :"$JAVAPORT" | grep ESTABLISHED | wc -l)
-  [ "$EDITION" == "bedrock" ] || [ "$Geyser" == "true" ] && CONNECTIONS_BEDROCK=$((echo -en "$BEDROCKPING" && sleep 1) | ncat -w 1 -u 127.0.0.1 "$BEDROCKPORT" | cut -c34- | awk -F\; '{ print $5 }')
+  [ "$EDITION" == "java" ] && CONNECTIONS_JAVA=$(netstat -atn | grep :19132 | grep ESTABLISHED | wc -l)
+  [[ "$EDITION" == "bedrock" || "$GEYSER" == true ]] && CONNECTIONS_BEDROCK=$( (echo -en "$BEDROCKPING" && sleep 1) | ncat -w 1 -u 127.0.0.1 19132 | cut -c34- | awk -F\; '{ print $5 }')
   [ -n "$CONNECTIONS_JAVA" ] || CONNECTIONS_JAVA=0
   [ -n "$CONNECTIONS_BEDROCK" ] || CONNECTIONS_BEDROCK=0
   if [ $CONNECTIONS_JAVA -lt 1 ] && [ $CONNECTIONS_BEDROCK -lt 1 ]
