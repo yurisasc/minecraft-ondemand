@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'minecraft-ecsfargate-watchdog/watchdog.sh'
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
