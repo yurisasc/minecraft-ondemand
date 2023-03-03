@@ -1,0 +1,25 @@
+name: Publish Docker container
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Build and tag Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: ./minecraft-ecsfargate-watchdog
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/minecraft-ecsfargate-watchdog:latest
+    - name: Logout of Docker Hub
+      run: |
+        docker logout
