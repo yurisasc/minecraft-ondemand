@@ -28,12 +28,12 @@ interface TwilioConfig {
 
 interface DiscordConfig {
   /**
-   * Discord webhook URL
+   * Discord webhook URLs, comma separated.
    *
    * @example
    * `https://discord.com/api/webhooks/1234567890/abcdefghijklmnopqrstuvwxyz`
    */
-  webhookUrl: string;
+  webhookUrls: string;
 }
 
 export type MinecraftImageEnv = Record<string, string>;
