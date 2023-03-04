@@ -13,16 +13,16 @@
 function send_notification ()
 {
   [ "$1" = "startup" ] && MESSAGETEXT="Minecraft server is online at ${SERVERNAME}" && DISCORDTEXT="{
-  \"content\": null,
-  \"embeds\": [
-    {
-      \"title\": \"🟢 Server Started!\",
-      \"description\": \"The server will be automatically shut down if there is no activity in $STARTUPMIN minutes.\",
-      \"color\": null
-    }
-  ],
-  \"attachments\": []
-}"
+    \"content\": null,
+    \"embeds\": [
+      {
+        \"title\": \"🟢 Server Started!\",
+        \"description\": \"The server will be automatically shut down if there is no activity in $STARTUPMIN minutes.\",
+        \"color\": null
+      }
+    ],
+    \"attachments\": []
+  }"
 
   [ "$1" = "shutdown" ] && MESSAGETEXT="Shutting down ${SERVICE} at ${SERVERNAME}" && DISCORDTEXT="{
       \"content\": null,
