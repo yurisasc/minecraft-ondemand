@@ -68,12 +68,11 @@ export class DomainStack extends Stack {
       domainName: config.domainName,
     });
 
-    const subdomainHostedZone = new route53.HostedZone(
+    const subdomainHostedZone = route53.HostedZone.fromLookup(
       this,
       'SubdomainHostedZone',
       {
-        zoneName: subdomain,
-        queryLogsLogGroupArn: queryLogGroup.logGroupArn,
+        domainName: subdomain,
       }
     );
 
@@ -84,7 +83,7 @@ export class DomainStack extends Stack {
 
     const nsRecord = new route53.NsRecord(this, 'NSRecord', {
       zone: rootHostedZone,
-      values: subdomainHostedZone.hostedZoneNameServers as string[],
+      values: config.subdomainNameservers,
       recordName: subdomain,
     });
 
