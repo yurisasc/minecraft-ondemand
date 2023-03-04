@@ -2,12 +2,18 @@ import { REST } from "@discordjs/rest";
 import { Options, Partials } from "discord.js";
 import { createRequire } from "node:module";
 
-import { HelpCommand, TestCommand } from "./commands/chat/index.js";
+import {
+  HelpCommand,
+  StartServerCommand,
+  TestCommand,
+} from "./commands/chat/index.js";
+import { StopServerCommand } from "./commands/chat/stop-server-command.js";
 import { ChatCommandMetadata, Command } from "./commands/index.js";
 import { CommandHandler } from "./events/index.js";
 import { CustomClient } from "./extensions/custom-client.js";
 import { Bot } from "./models/bot.js";
 import {
+  AWSService,
   CommandRegistrationService,
   EventDataService,
   Logger,
@@ -20,6 +26,8 @@ let Logs = require("../lang/logs.json");
 async function start(): Promise<void> {
   // Services
   let eventDataService = new EventDataService();
+  let awsService = new AWSService();
+  await awsService.init();
 
   // Client
   let client = new CustomClient({
@@ -39,7 +47,8 @@ async function start(): Promise<void> {
   let commands: Command[] = [
     new TestCommand(),
     new HelpCommand(),
-    // TODO: Add new commands here
+    new StartServerCommand(awsService),
+    new StopServerCommand(awsService),
   ];
 
   let commandHandler = new CommandHandler(commands, eventDataService);
