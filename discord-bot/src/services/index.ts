@@ -1,5 +1,5 @@
-
-export { CommandRegistrationService } from './command-registration-service.js';
-export { EventDataService } from './event-data-service.js';
-export { Lang } from './lang.js';
-export { Logger } from './logger.js';
+export { AWSService } from "./aws-service.js";
+export { CommandRegistrationService } from "./command-registration-service.js";
+export { EventDataService } from "./event-data-service.js";
+export { Lang } from "./lang.js";
+export { Logger } from "./logger.js";

@@ -25,6 +25,28 @@ export const ChatCommandMetadata: {
       },
     ],
   },
+  START_SERVER: {
+    type: ApplicationCommandType.ChatInput,
+    name: Lang.getRef("chatCommands.startServer", Language.Default),
+    name_localizations: Lang.getRefLocalizationMap("chatCommands.startServer"),
+    description: Lang.getRef("commandDescs.startServer", Language.Default),
+    description_localizations: Lang.getRefLocalizationMap(
+      "commandDescs.startServer"
+    ),
+    dm_permission: true,
+    default_member_permissions: undefined,
+  },
+  STOP_SERVER: {
+    type: ApplicationCommandType.ChatInput,
+    name: Lang.getRef("chatCommands.stopServer", Language.Default),
+    name_localizations: Lang.getRefLocalizationMap("chatCommands.stopServer"),
+    description: Lang.getRef("commandDescs.stopServer", Language.Default),
+    description_localizations: Lang.getRefLocalizationMap(
+      "commandDescs.stopServer"
+    ),
+    dm_permission: true,
+    default_member_permissions: undefined,
+  },
   TEST: {
     type: ApplicationCommandType.ChatInput,
     name: Lang.getRef("chatCommands.test", Language.Default),

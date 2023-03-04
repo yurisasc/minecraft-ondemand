@@ -9,7 +9,9 @@
             "value": [
               "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
               "",
-              "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}"
+              "{{CMD_LINK_TEST}} - {{REF:commandDescs.test}}",
+              "{{CMD_LINK_START_SERVER}} - {{REF:commandDescs.startServer}}",
+              "{{CMD_LINK_STOP_SERVER}} - {{REF:commandDescs.stopServer}}"
             ]
           }
         ]
@@ -71,6 +73,8 @@
   "refs": {
     "chatCommands": {
       "help": "help",
+      "startServer": "start",
+      "stopServer": "stop",
       "test": "test"
     },
     "arguments": {
@@ -78,6 +82,8 @@
     },
     "commandDescs": {
       "help": "Find help or contact support.",
+      "startServer": "Start the minecraft server.",
+      "stopServer": "Stop the minecraft server.",
       "test": "Run the test command."
     },
     "argDescs": {
@@ -130,11 +136,9 @@
       "ViewGuildInsights": "View Server Insights"
     },
     "helpOptions": {
-      "contactSupport": "Contact Support",
       "commands": "Commands"
     },
     "helpOptionDescs": {
-      "contactSupport": "❓ {{REF:helpOptions.contactSupport}} ❓",
       "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
     },
     "yesNo": {
