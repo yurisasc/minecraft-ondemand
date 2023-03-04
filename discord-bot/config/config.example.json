@@ -1,0 +1,33 @@
+{
+  "developers": ["<YOUR_USER_ID>"],
+  "client": {
+    "id": "<DISCORD_BOT_ID>",
+    "token": "<DISCORD_BOT_TOKEN>",
+    "intents": ["Guilds", "GuildMessages", "GuildMessageReactions"],
+    "partials": ["Message", "Channel", "Reaction"]
+  },
+  "rateLimiting": {
+    "commands": {
+      "amount": 10,
+      "interval": 30
+    },
+    "buttons": {
+      "amount": 10,
+      "interval": 30
+    },
+    "triggers": {
+      "amount": 10,
+      "interval": 30
+    },
+    "reactions": {
+      "amount": 10,
+      "interval": 30
+    }
+  },
+  "logging": {
+    "pretty": true,
+    "rateLimit": {
+      "minTimeout": 30
+    }
+  }
+}

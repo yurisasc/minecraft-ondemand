@@ -1,0 +1,21 @@
+{
+  "EULA": "TRUE",
+  "MEMORY": "3500M",
+  "TYPE": "FABRIC",
+  "OPS": "Vostox",
+  "WHITELIST": "Vostox, sempolayam",
+  "DIFFICULTY": "normal",
+  "ONLINE_MODE": "FALSE",
+  "MOTD": "Hello World!",
+  "MAX_PLAYERS": "5",
+  "VIEW_DISTANCE": "12",
+  "MODE": "survival",
+  "ENABLE_COMMAND_BLOCK": "true",
+  "TZ": "Australia/Brisbane",
+  "MODRINTH_PROJECTS": "fabric-api,lithium,lazydfu,ferrite-core,starlight,memoryleakfix,tabtps,fabrictailor,no-chat-reports,easywhitelist,convenient-mobgriefing",
+  "MODRINTH_DOWNLOAD_OPTIONAL_DEPENDENCIES": "TRUE",
+  "FETCH_RESPONSE_TIMEOUT": "PT20S",
+  "MODS": "https://ci.opencollab.dev/job/GeyserMC/job/Geyser/job/master/lastSuccessfulBuild/artifact/bootstrap/fabric/build/libs/Geyser-Fabric.jar",
+  "DATAPACKS": "https://www.dropbox.com/s/z7xv1sr7f4fleqv/Vein%20miner.zip?dl=1,https://www.dropbox.com/s/x3bx5pvf9zjqhh5/vanillarefresh-v1-4-8c.zip?dl=1,https://www.dropbox.com/s/zdrwwd6fer57efh/pk-waystones-v-1-0-5.zip?dl=1,https://www.dropbox.com/s/w5hmtyh73juqq97/BlazeandCaves%20Advancements%20Pack%201.15.3.zip?dl=1,https://www.dropbox.com/s/u6eeyul62vfxexg/Health%20Indications%20v2.2%201.19.zip?dl=1,https://www.dropbox.com/s/t87nhnc39t2nkjr/new-in-town-by-kanokarob-v2.14.zip?dl=1",
+  "REMOVE_OLD_DATAPACKS": "TRUE"
+}
