@@ -12,8 +12,27 @@
 
 function send_notification ()
 {
-  [ "$1" = "startup" ] && MESSAGETEXT="Minecraft server is online at ${SERVERNAME}"
-  [ "$1" = "shutdown" ] && MESSAGETEXT="Shutting down ${SERVICE} at ${SERVERNAME}"
+  [ "$1" = "startup" ] && MESSAGETEXT="Minecraft server is online at ${SERVERNAME}" && DISCORDTEXT="{
+  \"content\": null,
+  \"embeds\": [
+    {
+      \"title\": \"🟢 Server Started!\",
+      \"description\": \"The server will be automatically shut down if there is no activity in $STARTUPMIN minutes.\",
+      \"color\": null
+    }
+  ],
+  \"attachments\": []
+}"
+
+  [ "$1" = "shutdown" ] && MESSAGETEXT="Shutting down ${SERVICE} at ${SERVERNAME}" && DISCORDTEXT="{
+      \"content\": null,
+      \"embeds\": [{
+          \"title\": \"🔴 Server stopped\",
+          \"description\": \"Hope you had fun and don't forget to touch real grass 🌿\",
+          \"color\": null
+      }],
+      \"attachments\": []
+  }"
 
   ## Twilio Option
   [ -n "$TWILIOFROM" ] && [ -n "$TWILIOTO" ] && [ -n "$TWILIOAID" ] && [ -n "$TWILIOAUTH" ] && \
@@ -21,9 +40,12 @@ function send_notification ()
   curl --silent -XPOST -d "Body=$MESSAGETEXT" -d "From=$TWILIOFROM" -d "To=$TWILIOTO" "https://api.twilio.com/2010-04-01/Accounts/$TWILIOAID/Messages" -u "$TWILIOAID:$TWILIOAUTH"
 
   ## Discord Option
-  [ -n "$DISCORDWEBHOOK" ] && \
-  echo "Discord webhook set, sending $1 message" && \
-  curl --silent -X POST -H "Content-Type: application/json" -d "{\"content\": \"$MESSAGETEXT\"}" "$DISCORDWEBHOOK"
+  IFS=',' read -ra DISCORDWEBHOOKS <<< "$DISCORDWEBHOOKS"
+  for DISCORDWEBHOOK in "${DISCORDWEBHOOKS[@]}"; do
+    [ -n "$DISCORDWEBHOOK" ] && \
+    echo "Discord webhook set, sending $1 message" && \
+    curl --silent -X POST -H "Content-Type: application/json" -d "{\"content\": null, \"embeds\": [$DISCORDTEXT]}" "$DISCORDWEBHOOK"
+  done
 
   ## SNS Option
   [ -n "$SNSTOPIC" ] && \
