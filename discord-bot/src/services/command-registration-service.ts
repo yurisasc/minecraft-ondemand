@@ -16,13 +16,14 @@ let Logs = require("../../lang/logs.json");
 
 export class CommandRegistrationService {
   constructor(private rest: REST) {}
+  private clientId = process.env.CLIENT_ID;
 
   public async process(
     localCmds: RESTPostAPIApplicationCommandsJSONBody[],
     args: string[]
   ): Promise<void> {
     let remoteCmds = (await this.rest.get(
-      Routes.applicationCommands(Config.client.id)
+      Routes.applicationCommands(this.clientId)
     )) as RESTGetAPIApplicationCommandsResult;
 
     let localCmdsOnRemote = localCmds.filter((localCmd) =>
@@ -65,7 +66,7 @@ export class CommandRegistrationService {
             )
           );
           for (let localCmd of localCmdsOnly) {
-            await this.rest.post(Routes.applicationCommands(Config.client.id), {
+            await this.rest.post(Routes.applicationCommands(this.clientId), {
               body: localCmd,
             });
           }
@@ -80,7 +81,7 @@ export class CommandRegistrationService {
             )
           );
           for (let localCmd of localCmdsOnRemote) {
-            await this.rest.post(Routes.applicationCommands(Config.client.id), {
+            await this.rest.post(Routes.applicationCommands(this.clientId), {
               body: localCmd,
             });
           }
@@ -119,7 +120,7 @@ export class CommandRegistrationService {
           name: newName,
         };
         await this.rest.patch(
-          Routes.applicationCommand(Config.client.id, remoteCmd.id),
+          Routes.applicationCommand(this.clientId, remoteCmd.id),
           {
             body,
           }
@@ -149,7 +150,7 @@ export class CommandRegistrationService {
           )
         );
         await this.rest.delete(
-          Routes.applicationCommand(Config.client.id, remoteCmd.id)
+          Routes.applicationCommand(this.clientId, remoteCmd.id)
         );
         Logger.info(Logs.info.commandActionDeleted);
         return;
@@ -161,7 +162,7 @@ export class CommandRegistrationService {
             this.formatCommandList(remoteCmds)
           )
         );
-        await this.rest.put(Routes.applicationCommands(Config.client.id), {
+        await this.rest.put(Routes.applicationCommands(this.clientId), {
           body: [],
         });
         Logger.info(Logs.info.commandActionCleared);
