@@ -47,13 +47,4 @@ export const ChatCommandMetadata: {
     dm_permission: true,
     default_member_permissions: undefined,
   },
-  TEST: {
-    type: ApplicationCommandType.ChatInput,
-    name: Lang.getRef("chatCommands.test", Language.Default),
-    name_localizations: Lang.getRefLocalizationMap("chatCommands.test"),
-    description: Lang.getRef("commandDescs.test", Language.Default),
-    description_localizations: Lang.getRefLocalizationMap("commandDescs.test"),
-    dm_permission: true,
-    default_member_permissions: undefined,
-  },
 };
