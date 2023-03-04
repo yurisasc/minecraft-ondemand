@@ -1,6 +1,13 @@
+import * as dotenv from "dotenv";
+import path, { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { REST } from "@discordjs/rest";
 import { Options, Partials } from "discord.js";
 import { createRequire } from "node:module";
+
+dotenv.config({
+  path: path.resolve(dirname(fileURLToPath(import.meta.url)), "../.env"),
+});
 
 import {
   HelpCommand,
@@ -54,12 +61,13 @@ async function start(): Promise<void> {
   let commandHandler = new CommandHandler(commands, eventDataService);
 
   // Bot
-  let bot = new Bot(Config.client.token, client, commandHandler);
+  const clientToken = process.env.CLIENT_TOKEN;
+  let bot = new Bot(clientToken, client, commandHandler);
 
   // Register
   if (process.argv[2] == "commands") {
     try {
-      let rest = new REST({ version: "10" }).setToken(Config.client.token);
+      let rest = new REST({ version: "10" }).setToken(clientToken);
       let commandRegistrationService = new CommandRegistrationService(rest);
       let localCmds = [
         ...Object.values(ChatCommandMetadata).sort((a, b) =>

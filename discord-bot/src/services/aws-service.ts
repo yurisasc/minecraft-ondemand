@@ -1,16 +1,12 @@
 import AWS from "aws-sdk";
-import { createRequire } from "node:module";
-
-const require = createRequire(import.meta.url);
-let ServerConfig = require("../../config/server-config.json");
 
 export class AWSService {
   public async init(): Promise<void> {
     AWS.config.update({
-      region: ServerConfig.SERVER_REGION,
+      region: process.env.SERVER_REGION,
       credentials: {
-        accessKeyId: ServerConfig.AWS_ACCESS_KEY_ID,
-        secretAccessKey: ServerConfig.AWS_SECRET_ACCESS_KEY,
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
       },
     });
   }

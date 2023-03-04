@@ -68,9 +68,7 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# config files
-/**/config/**/*.json
-!/**/config/**/*.example.json
+# Environment variable files
 .env*
 !.env.example
 
