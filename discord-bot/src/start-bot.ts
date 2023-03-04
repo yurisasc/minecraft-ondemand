@@ -12,9 +12,8 @@ dotenv.config({
 import {
   HelpCommand,
   StartServerCommand,
-  TestCommand,
+  StopServerCommand,
 } from "./commands/chat/index.js";
-import { StopServerCommand } from "./commands/chat/stop-server-command.js";
 import { ChatCommandMetadata, Command } from "./commands/index.js";
 import { CommandHandler } from "./events/index.js";
 import { CustomClient } from "./extensions/custom-client.js";
@@ -52,7 +51,6 @@ async function start(): Promise<void> {
 
   // Commands
   let commands: Command[] = [
-    new TestCommand(),
     new HelpCommand(),
     new StartServerCommand(awsService),
     new StopServerCommand(awsService),
