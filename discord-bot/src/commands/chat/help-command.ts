@@ -19,6 +19,7 @@ export class HelpCommand implements Command {
   public names = [Lang.getRef("chatCommands.help", Language.Default)];
   public deferType = CommandDeferType.PUBLIC;
   public requireClientPerms: PermissionsString[] = [];
+
   public async execute(
     intr: ChatInputCommandInteraction,
     data: EventData
@@ -37,6 +38,18 @@ export class HelpCommand implements Command {
             await ClientUtils.findAppCommand(
               intr.client,
               Lang.getRef("chatCommands.test", Language.Default)
+            )
+          ),
+          CMD_LINK_START_SERVER: FormatUtils.commandMention(
+            await ClientUtils.findAppCommand(
+              intr.client,
+              Lang.getRef("chatCommands.startServer", Language.Default)
+            )
+          ),
+          CMD_LINK_STOP_SERVER: FormatUtils.commandMention(
+            await ClientUtils.findAppCommand(
+              intr.client,
+              Lang.getRef("chatCommands.stopServer", Language.Default)
             )
           ),
         });
