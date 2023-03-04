@@ -24,19 +24,13 @@
     "commands:delete": "npm run build && node --enable-source-maps dist/start-bot.js commands delete",
     "commands:clear": "npm run build && node --enable-source-maps dist/start-bot.js commands clear",
     "start": "npm run start:bot",
-    "start:bot": "npm run build && node --enable-source-maps dist/start-bot.js",
-    "start:manager": "npm run build && node --enable-source-maps dist/start-manager.js",
-    "start:pm2": "npm run build && npm run pm2:start",
-    "pm2:start": "pm2 start process.json",
-    "pm2:stop": "pm2 stop process.json",
-    "pm2:delete": "pm2 delete process.json"
+    "start:bot": "npm run build && node --enable-source-maps dist/start-bot.js"
   },
   "dependencies": {
     "aws-sdk": "^2.1328.0",
-    "cross-env": "^7.0.3",
     "discord.js": "^14.7.1",
     "discord.js-rate-limiter": "^1.3.2",
-    "env-cmd": "^10.1.0",
+    "dotenv": "^10.0.0",
     "linguini": "^1.3.1",
     "node-fetch": "^3.3.0",
     "pino": "^8.11.0",
