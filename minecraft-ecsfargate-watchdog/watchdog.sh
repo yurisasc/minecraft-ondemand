@@ -44,7 +44,7 @@ function send_notification ()
   for DISCORDWEBHOOK in "${DISCORDWEBHOOKS[@]}"; do
     [ -n "$DISCORDWEBHOOK" ] && \
     echo "Discord webhook set, sending $1 message" && \
-    curl --silent -X POST -H "Content-Type: application/json" -d "{\"content\": null, \"embeds\": [$DISCORDTEXT]}" "$DISCORDWEBHOOK"
+    curl --silent -X POST -H "Content-Type: application/json" -d "$DISCORDTEXT" "$DISCORDWEBHOOK"
   done
 
   ## SNS Option
