@@ -1,10 +1,11 @@
-name: Publish Docker container
+name: Publish Watchdog
 on:
   push:
     branches:
       - main
     paths:
       - 'minecraft-ecsfargate-watchdog/watchdog.sh'
+  workflow_dispatch:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
