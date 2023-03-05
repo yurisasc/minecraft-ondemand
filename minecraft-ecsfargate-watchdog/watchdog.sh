@@ -17,7 +17,7 @@ function send_notification ()
     \"embeds\": [
       {
         \"title\": \"🟢 Server Started!\",
-        \"description\": \"Server IP: `mc.yuris.dev`\n\n⚠️ The server will be shut down if there is no activity in the next $STARTUPMIN minutes.\n\n👌 If you forget to turn the server off after playing, we will shut the server down after $SHUTDOWNMIN minutes of the last activity to save up costs.\n\nAll progress will be automatically saved 👍\",
+        \"description\": \"Server IP: \`$SERVERNAME\`\n\n⚠️ The server will be shut down if there is no activity in the next $STARTUPMIN minutes.\n\n👌 If you forget to turn the server off after playing, we will shut the server down after $SHUTDOWNMIN minutes of the last activity to save up costs.\n\nAll progress will be automatically saved 👍\",
         \"color\": null
       }
     ],
