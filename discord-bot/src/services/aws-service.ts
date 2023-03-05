@@ -23,8 +23,8 @@ export class AWSService {
     const ecs = new AWS.ECS();
 
     const params = {
-      cluster: "minecraft",
-      service: "minecraft-server",
+      cluster: process.env.CLUSTER_NAME,
+      service: process.env.SERVICE_NAME,
       desiredCount: desiredCount,
     };
 
