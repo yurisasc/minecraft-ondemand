@@ -14,6 +14,14 @@
             ]
           }
         ]
+      },
+      "startServer": {
+        "title": "🟡 Starting server...",
+        "description": "Please wait while the server starts. It may take up to 10 minutes."
+      },
+      "stopServer": {
+        "title": "🟡 Stopping server...",
+        "description": "We will save your progress before stopping the server."
       }
     },
     "validationEmbeds": {

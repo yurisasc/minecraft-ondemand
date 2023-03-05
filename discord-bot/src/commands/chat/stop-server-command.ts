@@ -1,4 +1,9 @@
-import { CacheType, CommandInteraction, PermissionsString } from "discord.js";
+import {
+  CacheType,
+  CommandInteraction,
+  EmbedBuilder,
+  PermissionsString,
+} from "discord.js";
 import { Language } from "../../models/enum-helpers/language.js";
 import { EventData } from "../../models/internal-models.js";
 import { AWSService, Lang } from "../../services/index.js";
@@ -18,6 +23,11 @@ export class StopServerCommand implements Command {
   ): Promise<void> {
     this.awsService.stopServer();
 
-    await InteractionUtils.send(intr, "Stopping server...");
+    const embed: EmbedBuilder = Lang.getEmbed(
+      "displayEmbeds.stopServer",
+      data.lang
+    );
+
+    await InteractionUtils.send(intr, embed);
   }
 }

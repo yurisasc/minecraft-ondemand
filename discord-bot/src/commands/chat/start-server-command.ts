@@ -1,4 +1,9 @@
-import { CacheType, CommandInteraction, PermissionsString } from "discord.js";
+import {
+  CacheType,
+  CommandInteraction,
+  EmbedBuilder,
+  PermissionsString,
+} from "discord.js";
 import { Language } from "../../models/enum-helpers/language.js";
 import { EventData } from "../../models/internal-models.js";
 import { AWSService, Lang } from "../../services/index.js";
@@ -18,9 +23,11 @@ export class StartServerCommand implements Command {
   ): Promise<void> {
     this.awsService.startServer();
 
-    await InteractionUtils.send(
-      intr,
-      "Starting server... It may take up to 10 minutes."
+    const embed: EmbedBuilder = Lang.getEmbed(
+      "displayEmbeds.startServer",
+      data.lang
     );
+
+    await InteractionUtils.send(intr, embed);
   }
 }
