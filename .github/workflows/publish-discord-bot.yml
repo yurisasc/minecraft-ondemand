@@ -20,7 +20,7 @@ jobs:
         working-directory: ./discord-bot
         env: 
           CLIENT_ID: ${{ secrets.DISCORD_CLIENT_ID }}
-          CLIENT_TOKEN: ${{ secrets.DISCORD_CLIENT_SECRET }}
+          CLIENT_TOKEN: ${{ secrets.DISCORD_CLIENT_TOKEN }}
         run: | 
           npm install
           npm run commands:clear
