@@ -55,17 +55,6 @@ export interface StackConfig {
    */
   subdomainPart: string;
   /**
-   * The nameservers of the subdomain hosted zone. This is used to create an NS
-   * record on your domain hosted zone. This is needed so that you don't have to
-   * always create a new subdomain hosted zone when you want to create a new minecraft
-   * server.
-   *
-   * @default []
-   * @example
-   * `['ns-123.awsdns-45.net', 'ns-678.awsdns-90.net', 'ns-901.awsdns-23.net', 'ns-456.awsdns-78.net']`
-   */
-  subdomainNameservers: string[];
-  /**
    * The AWS region to deploy your minecraft server in.
    *
    * @default "us-east-1"
