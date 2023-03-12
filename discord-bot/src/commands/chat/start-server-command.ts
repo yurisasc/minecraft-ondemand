@@ -21,13 +21,22 @@ export class StartServerCommand implements Command {
     intr: CommandInteraction<CacheType>,
     data: EventData
   ): Promise<void> {
-    this.awsService.startServer("default");
+    try {
+      await this.awsService.startServer("default");
 
-    const embed: EmbedBuilder = Lang.getEmbed(
-      "displayEmbeds.startServer",
-      data.lang
-    );
+      const embed: EmbedBuilder = Lang.getEmbed(
+        "displayEmbeds.startServer",
+        data.lang
+      );
 
-    await InteractionUtils.send(intr, embed);
+      await InteractionUtils.send(intr, embed);
+    } catch {
+      const embed: EmbedBuilder = Lang.getEmbed(
+        "displayEmbeds.noCredentials",
+        data.lang
+      );
+
+      await InteractionUtils.send(intr, embed);
+    }
   }
 }
