@@ -25,6 +25,21 @@ export const ChatCommandMetadata: {
       },
     ],
   },
+  RLCRAFT: {
+    type: ApplicationCommandType.ChatInput,
+    name: Lang.getRef("chatCommands.rlcraft", Language.Default),
+    name_localizations: Lang.getRefLocalizationMap("chatCommands.rlcraft"),
+    description: Lang.getRef("commandDescs.rlcraft", Language.Default),
+    description_localizations: Lang.getRefLocalizationMap("commandDescs.rlcraft"),
+    dm_permission: true,
+    default_member_permissions: undefined,
+    options: [
+      {
+        ...Args.RLCRAFT_OPTION,
+        required: true,
+      }
+    ]
+  },
   START_SERVER: {
     type: ApplicationCommandType.ChatInput,
     name: Lang.getRef("chatCommands.startServer", Language.Default),

@@ -22,6 +22,10 @@
       "stopServer": {
         "title": "🟡 Stopping server...",
         "description": "We will save your progress before stopping the server."
+      },
+      "noCredentials": {
+        "title": "❌ No credentials",
+        "description": "The server credentials are not set. Please contact a server administrator."
       }
     },
     "validationEmbeds": {
@@ -77,6 +81,7 @@
   "refs": {
     "chatCommands": {
       "help": "help",
+      "rlcraft": "rlcraft",
       "startServer": "start",
       "stopServer": "stop"
     },
@@ -85,11 +90,13 @@
     },
     "commandDescs": {
       "help": "Find help or contact support.",
+      "rlcraft": "Commands for the RLcraft server.",
       "startServer": "Start the minecraft server.",
       "stopServer": "Stop the minecraft server."
     },
     "argDescs": {
-      "helpOption": "Option."
+      "helpOption": "Option.",
+      "rlcraftOption": "Option."
     },
     "fields": {
       "commands": "Commands"
@@ -140,8 +147,16 @@
     "helpOptions": {
       "commands": "Commands"
     },
+    "rlcraftOptions": {
+      "start": "Start",
+      "stop": "Stop"
+    },
     "helpOptionDescs": {
       "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
+    },
+    "rlcraftOptionDescs": {
+      "start": "{{REF:rlcraftOptions.start}} -- Start the RLcraft server.",
+      "stop": "{{REF:rlcraftOptions.stop}} -- Stop the RLcraft server."
     },
     "yesNo": {
       "yes": "Yes",

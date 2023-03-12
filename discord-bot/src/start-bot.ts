@@ -11,6 +11,7 @@ dotenv.config({
 
 import {
   HelpCommand,
+  RLCraftCommand,
   StartServerCommand,
   StopServerCommand,
 } from "./commands/chat/index.js";
@@ -54,6 +55,7 @@ async function start(): Promise<void> {
     new HelpCommand(),
     new StartServerCommand(awsService),
     new StopServerCommand(awsService),
+    new RLCraftCommand(awsService),
   ];
 
   let commandHandler = new CommandHandler(commands, eventDataService);

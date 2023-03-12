@@ -9,13 +9,21 @@ export class AWSService {
   }
 
   public async startServer(profileName: string): Promise<void> {
-    this.setProfile(profileName);
-    this.setServiceDesiredCount(1);
+    try {
+      this.setProfile(profileName);
+      this.setServiceDesiredCount(1);
+    } catch (err) {
+      throw err;
+    }
   }
 
   public async stopServer(profileName: string): Promise<void> {
-    this.setProfile(profileName);
-    this.setServiceDesiredCount(0);
+    try {
+      this.setProfile(profileName);
+      this.setServiceDesiredCount(0);
+    } catch (err) {
+      throw err;
+    }
   }
 
   private setServiceDesiredCount(desiredCount: number): void {
@@ -38,6 +46,8 @@ export class AWSService {
 
   private setProfile(profileName: string) {
     const profile = this.profileByName(profileName);
+
+    if (!profile) throw Error(`Profile ${profileName} not found`);
 
     const credentials = new AWS.Credentials({
       accessKeyId: profile.accessKeyId,
