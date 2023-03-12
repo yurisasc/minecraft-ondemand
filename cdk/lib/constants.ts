@@ -7,6 +7,6 @@ export const constants = {
   ECS_VOLUME_NAME: 'data',
   HOSTED_ZONE_SSM_PARAMETER: 'MinecraftHostedZoneID',
   LAUNCHER_LAMBDA_ARN_SSM_PARAMETER: 'LauncherLambdaRoleArn',
-  JAVA_EDITION_DOCKER_IMAGE: 'itzg/minecraft-server',
+  JAVA_EDITION_DOCKER_IMAGE: 'itzg/minecraft-server:java8-multiarch',
   BEDROCK_EDITION_DOCKER_IMAGE: 'itzg/minecraft-bedrock-server',
 };
