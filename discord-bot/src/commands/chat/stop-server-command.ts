@@ -21,7 +21,7 @@ export class StopServerCommand implements Command {
     intr: CommandInteraction<CacheType>,
     data: EventData
   ): Promise<void> {
-    this.awsService.stopServer();
+    this.awsService.stopServer("default");
 
     const embed: EmbedBuilder = Lang.getEmbed(
       "displayEmbeds.stopServer",

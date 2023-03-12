@@ -21,7 +21,7 @@ export class StartServerCommand implements Command {
     intr: CommandInteraction<CacheType>,
     data: EventData
   ): Promise<void> {
-    this.awsService.startServer();
+    this.awsService.startServer("default");
 
     const embed: EmbedBuilder = Lang.getEmbed(
       "displayEmbeds.startServer",

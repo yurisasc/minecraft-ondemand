@@ -10,3 +10,17 @@ export class EventData {
     public langGuild: Locale
   ) {}
 }
+
+// This class is used to store AWS profile credentials
+export class AWSProfile {
+  constructor(
+    // AWS profile name
+    public profileName: string,
+    // AWS access key ID
+    public accessKeyId: string,
+    // AWS secret access key
+    public secretAccessKey: string,
+    // Minecraft server region
+    public region: string
+  ) {}
+}
