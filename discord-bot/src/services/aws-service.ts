@@ -2,19 +2,13 @@ import AWS from "aws-sdk";
 import { AWSProfile } from "../models/internal-models";
 
 export class AWSService {
-  private profiles: AWSProfile[];
-
-  public async init(): Promise<void> {
-    this.profiles = JSON.parse(process.env.AWS_PROFILES ?? "[]");
-  }
-
-  public async startServer(profileName: string): Promise<void> {
-    this.setProfile(profileName);
+  public async startServer(profile: AWSProfile): Promise<void> {
+    this.setProfile(profile);
     this.setServiceDesiredCount(1);
   }
 
-  public async stopServer(profileName: string): Promise<void> {
-    this.setProfile(profileName);
+  public async stopServer(profile: AWSProfile): Promise<void> {
+    this.setProfile(profile);
     this.setServiceDesiredCount(0);
   }
 
@@ -36,9 +30,7 @@ export class AWSService {
     });
   }
 
-  private setProfile(profileName: string) {
-    const profile = this.profileByName(profileName);
-
+  private setProfile(profile: AWSProfile) {
     const credentials = new AWS.Credentials({
       accessKeyId: profile.accessKeyId,
       secretAccessKey: profile.secretAccessKey,
@@ -50,9 +42,5 @@ export class AWSService {
     });
 
     AWS.config.update(config);
-  }
-
-  private profileByName(profileName: string): AWSProfile {
-    return this.profiles.find((profile) => profile.profileName === profileName);
   }
 }

@@ -34,12 +34,6 @@ export class HelpCommand implements Command {
     switch (args.option) {
       case HelpOption.COMMANDS: {
         embed = Lang.getEmbed("displayEmbeds.helpCommands", data.lang, {
-          CMD_LINK_TEST: FormatUtils.commandMention(
-            await ClientUtils.findAppCommand(
-              intr.client,
-              Lang.getRef("chatCommands.test", Language.Default)
-            )
-          ),
           CMD_LINK_START_SERVER: FormatUtils.commandMention(
             await ClientUtils.findAppCommand(
               intr.client,

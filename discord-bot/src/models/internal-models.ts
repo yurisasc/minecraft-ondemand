@@ -24,3 +24,14 @@ export class AWSProfile {
     public region: string
   ) {}
 }
+
+// Each server is deployed to a different AWS profile,
+// hence the need to store the account info
+export class MinecraftServer {
+  constructor(
+    // Server name, used to identify the server in the bot
+    public name: string,
+    // Server account info
+    public awsAccount: AWSProfile
+  ) {}
+}

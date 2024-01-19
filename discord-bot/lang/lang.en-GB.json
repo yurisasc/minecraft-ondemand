@@ -16,12 +16,20 @@
         ]
       },
       "startServer": {
-        "title": "🟡 Starting server...",
+        "title": "🟡 Starting {{SERVER_NAME}}...",
         "description": "Please wait while the server starts. It may take up to 10 minutes."
       },
       "stopServer": {
-        "title": "🟡 Stopping server...",
+        "title": "🟡 Stopping {{SERVER_NAME}}...",
         "description": "We will save your progress before stopping the server."
+      },
+      "invalidServerName": {
+        "title": "❌ Invalid server",
+        "description": "{{SERVER_NAME}} does not exist. Please choose the available server."
+      },
+      "emptyServerName": {
+        "title": "❓ No server name",
+        "description": "Please enter the name of the server you want to start."
       }
     },
     "validationEmbeds": {
@@ -89,7 +97,9 @@
       "stopServer": "Stop the minecraft server."
     },
     "argDescs": {
-      "helpOption": "Option."
+      "helpOption": "Option.",
+      "startOption": "Server to start.",
+      "stopOption": "Server to stop."
     },
     "fields": {
       "commands": "Commands"

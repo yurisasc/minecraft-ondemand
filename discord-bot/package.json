@@ -15,8 +15,6 @@
     "lint:fix": "eslint . --fix --cache --ext .js,.jsx,.ts,.tsx",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "clean": "git clean -xdf --exclude=\"/config/**/*\"",
-    "clean:dry": "git clean -xdf --exclude=\"/config/**/*\" --dry-run",
     "build": "tsc --project tsconfig.json",
     "commands:view": "npm run build && node --enable-source-maps dist/start-bot.js commands view",
     "commands:register": "npm run build && node --enable-source-maps dist/start-bot.js commands register",
