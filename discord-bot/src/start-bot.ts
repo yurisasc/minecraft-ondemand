@@ -11,11 +11,10 @@ dotenv.config({
 
 import {
   HelpCommand,
-  RLCraftCommand,
   StartServerCommand,
   StopServerCommand,
 } from "./commands/chat/index.js";
-import { ChatCommandMetadata, Command } from "./commands/index.js";
+import { Args, ChatCommandMetadata, Command } from "./commands/index.js";
 import { CommandHandler } from "./events/index.js";
 import { CustomClient } from "./extensions/custom-client.js";
 import { Bot } from "./models/bot.js";
@@ -25,6 +24,10 @@ import {
   EventDataService,
   Logger,
 } from "./services/index.js";
+import {
+  MultiServersService,
+  getServerNames,
+} from "./services/multi-servers-service.js";
 
 const require = createRequire(import.meta.url);
 let Config = require("../config/config.json");
@@ -34,7 +37,7 @@ async function start(): Promise<void> {
   // Services
   let eventDataService = new EventDataService();
   let awsService = new AWSService();
-  await awsService.init();
+  let multiServersService = new MultiServersService(awsService);
 
   // Client
   let client = new CustomClient({
@@ -53,9 +56,8 @@ async function start(): Promise<void> {
   // Commands
   let commands: Command[] = [
     new HelpCommand(),
-    new StartServerCommand(awsService),
-    new StopServerCommand(awsService),
-    new RLCraftCommand(awsService),
+    new StartServerCommand(multiServersService),
+    new StopServerCommand(multiServersService),
   ];
 
   let commandHandler = new CommandHandler(commands, eventDataService);
@@ -70,7 +72,7 @@ async function start(): Promise<void> {
       let rest = new REST({ version: "10" }).setToken(clientToken);
       let commandRegistrationService = new CommandRegistrationService(rest);
       let localCmds = [
-        ...Object.values(ChatCommandMetadata).sort((a, b) =>
+        ...Object.values(ChatCommandMetadata(getServerNames())).sort((a, b) =>
           a.name > b.name ? 1 : -1
         ),
       ];
