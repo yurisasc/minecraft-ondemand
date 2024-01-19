@@ -1,20 +1,6 @@
 {
   "data": {
     "displayEmbeds": {
-      "helpCommands": {
-        "title": "Help - {{REF:helpOptions.commands}}",
-        "fields": [
-          {
-            "name": "Commands",
-            "value": [
-              "To see the available commands, just type `/` and select the bot from the left side. You can then scroll through all available commands. Some commands may be hidden if you don't have permission to view them.",
-              "",
-              "{{CMD_LINK_START_SERVER}} - {{REF:commandDescs.startServer}}",
-              "{{CMD_LINK_STOP_SERVER}} - {{REF:commandDescs.stopServer}}"
-            ]
-          }
-        ]
-      },
       "startServer": {
         "title": "🟡 Starting {{SERVER_NAME}}...",
         "description": "Please wait while the server starts. It may take up to 10 minutes."
@@ -84,7 +70,6 @@
   },
   "refs": {
     "chatCommands": {
-      "help": "help",
       "startServer": "start",
       "stopServer": "stop"
     },
@@ -92,12 +77,10 @@
       "option": "option"
     },
     "commandDescs": {
-      "help": "Find help or contact support.",
       "startServer": "Start the minecraft server.",
       "stopServer": "Stop the minecraft server."
     },
     "argDescs": {
-      "helpOption": "Option.",
       "startOption": "Server to start.",
       "stopOption": "Server to stop."
     },
@@ -146,12 +129,6 @@
       "ViewAuditLog": "View Audit Log",
       "ViewChannel": "View Channel(s)",
       "ViewGuildInsights": "View Server Insights"
-    },
-    "helpOptions": {
-      "commands": "Commands"
-    },
-    "helpOptionDescs": {
-      "commands": "{{REF:helpOptions.commands}} -- What commands are there? How do I restrict who is allowed to use commands?"
     },
     "yesNo": {
       "yes": "Yes",

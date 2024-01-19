@@ -10,7 +10,6 @@ dotenv.config({
 });
 
 import {
-  HelpCommand,
   StartServerCommand,
   StopServerCommand,
 } from "./commands/chat/index.js";
@@ -55,7 +54,6 @@ async function start(): Promise<void> {
 
   // Commands
   let commands: Command[] = [
-    new HelpCommand(),
     new StartServerCommand(multiServersService),
     new StopServerCommand(multiServersService),
   ];
