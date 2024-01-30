@@ -12,12 +12,12 @@
 
 function send_notification ()
 {
-  [ "$1" = "startup" ] && MESSAGETEXT="Minecraft server is online at ${SERVERNAME}" && DISCORDTEXT="{
+  [ "$1" = "startup" ] && MESSAGETEXT="Palworld server is online at ${SERVERNAME}" && DISCORDTEXT="{
     \"content\": null,
     \"embeds\": [
       {
         \"title\": \"🟢 Server Started!\",
-        \"description\": \"Server IP: \`$SERVERNAME\`\n\n⚠️ The server will be shut down if there is no activity in the next $STARTUPMIN minutes.\n\n👌 If you forget to stop the server after playing, we will shut it down after $SHUTDOWNMIN minutes of the last activity to save up costs.\n\nAll progress will be automatically saved 👍\",
+        \"description\": \"Server IP: \`$SERVERNAME\` or \`$2\`\n\n⚠️ The server will be shut down if there is no activity in the next $STARTUPMIN minutes.\n\n👌 If you forgot to stop the server after playing, we will shut it down after $SHUTDOWNMIN minutes of the last activity to save up costs.\n\nAll progress will automatically be saved 👍\",
         \"color\": null
       }
     ],
@@ -152,7 +152,7 @@ then
 fi
 
 ## Send startup notification message
-send_notification startup
+send_notification startup $PUBLICIP
 
 echo "Checking every 1 minute for active connections to Minecraft, up to $STARTUPMIN minutes..."
 COUNTER=0
